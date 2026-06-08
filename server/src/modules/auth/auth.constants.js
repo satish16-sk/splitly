@@ -1,0 +1,1 @@
+export const TOEKN_EXPIRY ='7d'
