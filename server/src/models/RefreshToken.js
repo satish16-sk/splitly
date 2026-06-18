@@ -1,10 +1,9 @@
-import mongoose, { trusted } from "mongoose";
+import mongoose from "mongoose";
 
 /**
  * RefreshToken Schema definition
  */
-
-const RefreshTokenSchema = new mongoose.Schema(
+const refreshTokenSchema = new mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
@@ -14,20 +13,20 @@ const RefreshTokenSchema = new mongoose.Schema(
     },
     token: {
       type: String,
-      required: [true, "Token is required"],
+      required: [true, "Token string is required"],
       unique: true,
     },
     expiresAt: {
       type: Date,
-      required: [true, "Expiration timeStamp is required"],
+      required: [true, "Expiration timestamp is required"],
     },
     revokedAt: {
       type: Date,
-      dafault: null,
+      default: null,
     },
     isRevoked: {
       type: Boolean,
-      deafult: false,
+      default: false,
     },
   },
   {
