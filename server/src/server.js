@@ -1,14 +1,14 @@
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 dotenv.config();
 
-import http from 'http';
-import { Server } from 'socket.io';
-import app from './app.js';
-import { connectDB } from './config/db.config.js';
-import { socketConfig } from './config/socket.config.js';
-import { socketService } from './services/socket.service.js';
-import { registerNotificationHandlers } from './sockets/notification.socket.js';
-import { registerExpenseHandlers } from './sockets/expense.socket.js';
+import http from "http";
+import { Server } from "socket.io";
+import app from "./app.js";
+import { connectDB } from "./config/db.config.js";
+import { socketConfig } from "./config/socket.config.js";
+import { socketService } from "./services/socket.service.js";
+import { registerNotificationHandlers } from "./sockets/notification.socket.js";
+import { registerExpenseHandlers } from "./sockets/expense.socket.js";
 
 const PORT = process.env.PORT || 5000;
 
@@ -22,14 +22,14 @@ const io = new Server(server, socketConfig);
 socketService.init(io);
 
 // Socket Connection Manager
-io.on('connection', (socket) => {
+io.on("connection", (socket) => {
   console.log(`Socket client connected: ${socket.id}`);
-  
+
   // Register specific handlers
   registerNotificationHandlers(io, socket);
   registerExpenseHandlers(io, socket);
-  
-  socket.on('disconnect', () => {
+
+  socket.on("disconnect", () => {
     console.log(`Socket client disconnected: ${socket.id}`);
   });
 });
@@ -42,7 +42,7 @@ const startServer = async () => {
       console.log(`Server is listening on port ${PORT}`);
     });
   } catch (error) {
-    console.error('Server startup failed:', error.message);
+    console.error("Server startup failed:", error.message);
   }
 };
 

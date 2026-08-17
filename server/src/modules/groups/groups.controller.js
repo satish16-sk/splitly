@@ -1,18 +1,17 @@
 import {
   createGroup,
-  getGroupByUser,
+  getGroupsByUser,
   getGroupById,
   updateGroup,
   addMember,
   removeMember,
-  getGroupMembers
-} from './groups.service.js'
-
+  getGroupMembers,
+} from "./groups.service.js";
 import ApiResponse from "../../utils/ApiResponse.js";
 
 export const handleCreateGroup = async (req, res, next) => {
   try {
-    const result = await handleCreateGroup(req.body, req.user.id);
+    const result = await createGroup(req.body, req.user.id);
     res
       .status(201)
       .json(new ApiResponse(201, result, "Group created successfully"));
@@ -23,10 +22,10 @@ export const handleCreateGroup = async (req, res, next) => {
 
 export const handleGetGroups = async (req, res, next) => {
   try {
-    const result = await getGroupByUser(req.user.id);
+    const result = await getGroupsByUser(req.user.id);
     res
       .status(200)
-      .json(new ApiResponse(200, result, "Group retrieved successfully"));
+      .json(new ApiResponse(200, result, "Groups retrieved successfully"));
   } catch (error) {
     next(error);
   }
@@ -34,10 +33,10 @@ export const handleGetGroups = async (req, res, next) => {
 
 export const handleGetGroupById = async (req, res, next) => {
   try {
-    const result = await handleGetGroupById(req.params.groupId, req.user.id);
+    const result = await getGroupById(req.params.groupId, req.user.id);
     res
       .status(200)
-      .json(new ApiResponse(200, result, "Group retrival successfully"));
+      .json(new ApiResponse(200, result, "Group retrieved successfully"));
   } catch (error) {
     next(error);
   }
@@ -65,19 +64,25 @@ export const handleAddMember = async (req, res, next) => {
   }
 };
 
-export const handleRemoverMember = async(req,res,next)=> {
+export const handleRemoveMember = async (req, res, next) => {
   try {
-    await handleRemoverMember(req,params.groundId, req,params.userId, req,user.id);
-    res.status(200).json(new ApiResponse(200,null,'Member removed successfully'));
+    await removeMember(req.params.groupId, req.params.userId, req.user.id);
+    res
+      .status(200)
+      .json(new ApiResponse(200, null, "Member removed successfully"));
   } catch (error) {
     next(error);
   }
 };
 
-export const handleGetGroupMembers =async (req,res,next)=> {
+export const handleGetGroupMembers = async (req, res, next) => {
   try {
-    const result = await handleGetGroupMembers(req,params.groupId, req,user.id);
-    res.status(200).json(new ApiResponse(200,result,'Group members retrived successfully'));
+    const result = await getGroupMembers(req.params.groupId, req.user.id);
+    res
+      .status(200)
+      .json(
+        new ApiResponse(200, result, "Group members retrieved successfully"),
+      );
   } catch (error) {
     next(error);
   }

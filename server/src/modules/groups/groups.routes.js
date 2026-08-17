@@ -1,18 +1,18 @@
 import express from "express";
 import {
-  handleAddMember,
   handleCreateGroup,
-  handleGetGroupById,
-  handleGetGroupMembers,
   handleGetGroups,
-  handleRemoverMember,
+  handleGetGroupById,
   handleUpdateGroup,
+  handleAddMember,
+  handleRemoveMember,
+  handleGetGroupMembers,
 } from "./groups.controller.js";
 import { protect } from "../../middleware/auth.middleware.js";
 import {
-  validateAddMember,
   validateGroupCreate,
   validateGroupUpdate,
+  validateAddMember,
 } from "./groups.validation.js";
 
 const router = express.Router();
@@ -24,6 +24,6 @@ router.put("/:groupId", protect, validateGroupUpdate, handleUpdateGroup);
 
 router.post("/:groupId/members", protect, validateAddMember, handleAddMember);
 router.get("/:groupId/members", protect, handleGetGroupMembers);
-router.delete("/:groupId/members/:userId", protect, handleRemoverMember);
+router.delete("/:groupId/members/:userId", protect, handleRemoveMember);
 
 export default router;

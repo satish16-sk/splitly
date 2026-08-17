@@ -4,6 +4,9 @@
   "description": "",
   "main": "src/server.js",
   "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "db:clear": "node src/config/db.clean.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
